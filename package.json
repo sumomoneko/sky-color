@@ -7,19 +7,32 @@
     "vscode": "^1.74.0"
   },
   "categories": [
-    "Other"
+    "Themes"
   ],
   "activationEvents": [
-    "onCommand:sky-color.helloWorld"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "sky-color.helloWorld",
-        "title": "Hello World"
+    "configuration": {
+      "title": "Sky Color",
+      "properties": {
+        "sky-color.locationZipCode": {
+          "type": "string",
+          "default": "1000000",
+          "description": "Zip/Post code."
+        },
+        "sky-color.locationCountryCode": {
+          "type": "string",
+          "default": "JP",
+          "description": "ISO 3166 2 byte country code."
+        },
+        "sky-color.apiKey": {
+          "type": "string",
+          "description": "openweathermap.org API key."
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -30,16 +43,22 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/test-electron": "^2.2.0",
     "eslint": "^8.26.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
-    "typescript": "^4.8.4",
-    "@vscode/test-electron": "^2.2.0"
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "ajv": "^8.11.2",
+    "date-fns": "^2.29.3",
+    "set-interval-async": "^3.0.2",
+    "undici": "^5.14.0"
   }
 }
