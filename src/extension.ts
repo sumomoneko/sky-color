@@ -104,7 +104,7 @@ class SkyColor {
             break;
           case UnknownResponseError:
             vscode.window.showErrorMessage(
-              "Invalid response from openweather server."
+              "Invalid response from openweathermap server."
             );
             break;
         }
