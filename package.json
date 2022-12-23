@@ -1,16 +1,33 @@
 {
   "name": "sky-color",
-  "displayName": "sky-color",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "Sky Color",
+  "description": "Reflects the current sky color in the status bar",
+  "version": "0.1.0",
+  "publisher": "sumomoneko",
   "engines": {
     "vscode": "^1.74.0"
   },
+  "author": {
+    "name": "sumomoneko"
+  },
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sumomoneko/sky-color.git"
+  },
+  "homepage": "https://github.com/sumomoneko/sky-color/",
   "categories": [
-    "Themes"
+    "Themes",
+    "Other"
   ],
+  "license": "MIT",
   "activationEvents": [
     "*"
+  ],
+  "keywords": [
+    "Theme",
+    "Colors",
+    "Fun"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -35,12 +52,16 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
@@ -50,6 +71,7 @@
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@vscode/test-electron": "^2.2.0",
+    "esbuild": "^0.16.10",
     "eslint": "^8.26.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",

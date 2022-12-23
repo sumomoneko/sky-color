@@ -1,71 +1,39 @@
-# sky-color README
+# Sky Color: Reflects the current sky color in the status bar
 
-This is the README for your extension "sky-color". After writing up a brief description, we recommend including the following sections.
+Get the latitude, longitude, and weather of the current location from [OpenWeatherMap](https://openweathermap.org/) and set the current sky color in the status bar.
+
+![screen image](https://raw.githubusercontent.com/sumomoneko/sky-color/main/doc/sky-color.gif)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Set the current sky color in the status bar.
+- The color is whitened depending on the degree of cloudiness.
 
-For example if there is an image subfolder under your extension project workspace:
+This extension is inspired by [zk-phi/sky-color-clock: Emacs clock widget](https://github.com/zk-phi/sky-color-clock).  
+There are also the following projects based on the same concept:
 
-\!\[feature X\]\(images/feature-x.png\)
+- for Vim: [mopp/sky-color-clock.vim](https://github.com/mopp/sky-color-clock.vim)
+- Desktop app: [opengl-8080/little-sky](https://github.com/opengl-8080/little-sky)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## How to setup
 
-## Requirements
+1. Register with [OpenWeatherMap](https://openweathermap.org/) and get an API key.
+2. Set API key, Country code, and zip code in _user settings_.
+   ![settings](https://raw.githubusercontent.com/sumomoneko/sky-color/main/doc/settings.png)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Implementation Details
 
-## Extension Settings
+At startup, [Geocoding API](https://openweathermap.org/api/geocoding-api#direct_zip) is used to
+obtain latitude and longitude.  
+Then, every 30 minutes, [Current weather data API](https://openweathermap.org/current) is used to
+obtain the time of the Sunrise/Sunset and cloud degree.  
+Every 5 minutes, update the color of the status bar based on the current time.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+To update colors, this extension rewrites `workbench.colorCustomizations` in User settings.json.  
+The implementation for the color change is based on
+[johnpapa/vscode-peacock](https://github.com/johnpapa/vscode-peacock).
 
-For example:
+## License
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- MIT
+- Icon Image by [Peter H](https://pixabay.com/ja/users/tama66-1032521/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3879030) from [Pixabay](https://pixabay.com/ja//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3879030)
