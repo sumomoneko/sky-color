@@ -61,7 +61,7 @@ class SkyColor {
 
     this.colorUpdaterHandle_ = setIntervalAsync(async () => {
       await this.updateColor();
-    }, 1 * 60 * 1000);
+    }, 5 * 60 * 1000);
   }
 
   public async onDidChangeConfiguration() {
