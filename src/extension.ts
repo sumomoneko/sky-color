@@ -187,13 +187,18 @@ class SkyColor {
     }
 
     const currentValues: object = inspect.globalValue ?? {};
+    const updatedValues = Object.assign({}, currentValues);
+    Object.assign(updatedValues, newColorValues);
 
-    const updatedValue = Object.assign(currentValues, newColorValues);
+    if (JSON.stringify(currentValues) === JSON.stringify(updatedValues)) {
+      console.debug("no rewrite required.");
+      return;
+    }
 
     const workspaceConfig = vscode.workspace.getConfiguration();
     await workspaceConfig.update(
       "workbench.colorCustomizations",
-      updatedValue,
+      updatedValues,
       vscode.ConfigurationTarget.Global
     );
     console.debug("config updated.");
